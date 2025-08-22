@@ -4,7 +4,7 @@ import { ProductListItem } from "./ProductListItem";
 
 export const ProductList = () => {
     
-    const products = useProducts({ limit: 20, skip: 0 });
+    const products = useProducts({ limit: 30, skip: 0 });
 
     if (products.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
     if (products.isError) return <View className="p-4"><Text>Ocurrió un error</Text></View>;
