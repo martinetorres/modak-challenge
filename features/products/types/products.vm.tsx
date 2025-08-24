@@ -10,9 +10,12 @@ export type ProductDetailVM = {
   title: string;
   description: string;
   priceFormatted: string;
-  ratingText: string;
+  rating: number;
   brand: string;
   categoryLabel: string;
-  stockText: string;
+  availabilityStatus: string;
   images: string[];
+  shippingInformation: string;
+  warrantyInformation: string;
+  discountPercentage: number;
 };

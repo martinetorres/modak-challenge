@@ -19,14 +19,17 @@ export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
   const images = (d.images ?? []).filter(Boolean);
   return {
     id: String(d.id),
+    availabilityStatus: (d.availabilityStatus ?? '').trim(),
     title: (d.title ?? "").trim(),
     description: (d.description ?? "").trim(),
     priceFormatted: fmtUSD(Number(d.price) || 0),
-    ratingText: `${Number(d.rating ?? 0).toFixed(1)}/5`,
+    rating: d.rating,
     brand: d.brand ?? "Unknown",
     categoryLabel: d.category,
-    stockText: stock > 0 ? `En stock (${stock})` : "Sin stock",
     images: images.length ? images : (d.thumbnail ? [d.thumbnail] : []),
+    shippingInformation: (d.shippingInformation).trim(),
+    warrantyInformation: d.warrantyInformation,
+    discountPercentage: d.discountPercentage || 0
   };
 };
 

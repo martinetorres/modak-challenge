@@ -21,6 +21,7 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="(home)/index" options={{ headerShown: true }} />
+        <Stack.Screen name="product/[id]" />
       </Stack>
       <StatusBar style="auto" />
     </QueryClientProvider>
