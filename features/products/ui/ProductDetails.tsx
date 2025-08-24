@@ -20,7 +20,9 @@ export const ProductDetails = ({product} : ProductDetailProps) => {
             </View>
 
             <Text className='text-2xl font-bold'>{product.title}</Text>
-            <ImagesSlider images={product.images} />
+            <View className='mt-5 mb-5'>
+                <ImagesSlider images={product.images} />
+            </View>
 
             <View className='flex-row gap-2 items-center'>
                 <Text className='text-5xl pt-2 pb-3'>{product.priceFormatted}</Text>

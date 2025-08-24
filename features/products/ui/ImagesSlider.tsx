@@ -56,7 +56,7 @@ export default function ImageSlider({
       </ScrollView>
       
       {images.length > 1 &&
-        <View className="absolute bottom-2 left-0 right-0 flex-row justify-center">
+        <View className="absolute bottom-0 left-0 right-0 flex-row justify-center">
           {images.map((_, i) => (
             <View
               key={i}
