@@ -1,14 +1,13 @@
 import { router } from "expo-router";
-import { ActivityIndicator, FlatList, Pressable, Text, View } from "react-native";
-import { useProducts } from "../hooks/useProducts";
+import { FlatList, Pressable } from "react-native";
+import { ProductCardVM } from "../types/products.vm";
 import { ProductListItem } from "./ProductListItem";
 
-export const ProductList = () => {
-    
-    const products = useProducts({ limit: 30, skip: 0 });
+interface ProductsListProps {
+    products: ProductCardVM[];
+}
 
-    if (products.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
-    if (products.isError) return <View className="p-4"><Text>Ocurrió un error</Text></View>;
+export const ProductList = ({products}: ProductsListProps) => {
 
     const navigateToProductDetails = (id: string) => {
         router.push({pathname: '/product/[id]', params: {id}});
@@ -17,7 +16,7 @@ export const ProductList = () => {
     return(
         <FlatList
             className="px-4"
-            data={products.data?.items ?? []}
+            data={products ?? []}
             keyExtractor={(it) => it.id}
             renderItem={({ item }) => (
                 <Pressable onPress={() => navigateToProductDetails(item.id)}>
