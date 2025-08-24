@@ -54,16 +54,18 @@ export default function ImageSlider({
           </View>
         ))}
       </ScrollView>
-
-      <View className="absolute bottom-2 left-0 right-0 flex-row justify-center">
-        {images.map((_, i) => (
-          <View
-            key={i}
-            className="w-2 h-2 rounded-full mx-1"
-            style={{ backgroundColor: i === index ? dotActiveColor : dotColor }}
-          />
-        ))}
-      </View>
+      
+      {images.length > 1 &&
+        <View className="absolute bottom-2 left-0 right-0 flex-row justify-center">
+          {images.map((_, i) => (
+            <View
+              key={i}
+              className="w-2 h-2 rounded-full mx-1"
+              style={{ backgroundColor: i === index ? dotActiveColor : dotColor }}
+            />
+          ))}
+        </View>
+      }
     </View>
   );
 }

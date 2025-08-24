@@ -1,26 +1,18 @@
+import { useProductDetails } from "@/features/products/hooks/useProductDetails";
 import { ProductDetails } from "@/features/products/ui/ProductDetails";
+import { useLocalSearchParams } from "expo-router";
+import { ActivityIndicator, Text, View } from "react-native";
 
 export default function ProductDetailsScreen() {
-    const product = {  
-        id: '1',
-        title: 'Product 1',
-        description: 'The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.',
-        priceFormatted: '$19,90',
-        rating: 2.8,
-        brand: 'Nike',
-        categoryLabel: 'Shoes',
-        availabilityStatus: 'In stock',
-        images: [
-            'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp',
-            'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp',
-            'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp'
-        ],
-        shippingInformation: 'Ships in 3-5 business days',
-        warrantyInformation: '1 week warranty',
-        discountPercentage: 10.2
-    };
+    const {id} = useLocalSearchParams<{ id: string }>();
+    const product = useProductDetails({id: id});
     
-    return(
-        <ProductDetails product={product} />
-    )
+    if (product.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
+    if (product.isError) return <View className="p-4"><Text>Ocurrió un error</Text></View>;
+    
+    if (product.data) {
+        return(
+            <ProductDetails product={product.data} />
+        )
+    }
 }
