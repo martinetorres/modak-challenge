@@ -21,7 +21,7 @@ export const PriceTag = ({price, previousPrice, discountPercentage, big = false}
             }
             {discountPercentage &&
                 <View>
-                    <Text className={`${discountPercentageClass} text-green`}>{discountPercentage}%</Text>
+                    <Text className={`${discountPercentageClass} text-green-600`}>{discountPercentage}%</Text>
                 </View>
             }
         </View> 
