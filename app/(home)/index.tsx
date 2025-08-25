@@ -2,12 +2,15 @@ import { useCategories } from "@/features/products/hooks/useCategories";
 import { useProducts } from "@/features/products/hooks/useProducts";
 import CategoriesFilter from "@/features/products/ui/CategoriesFilter";
 import { ProductList } from "@/features/products/ui/ProductList";
+import { SortProductsOptions } from "@/features/products/ui/SortProductsOptions";
 import { useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 
 export default function HomeScreen() {
     const [category, setCategory] = useState<string>("all");
-    const products = useProducts({ limit: 30, skip: 0, category });
+    const [sortBy, setSortBy] = useState<string>('');
+
+    const products = useProducts({ limit: 30, skip: 0, category, sortBy });
     const categories = useCategories();
 
     if (products.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
@@ -17,12 +20,14 @@ export default function HomeScreen() {
         <View>
             {
                 categories.data &&
-                <CategoriesFilter 
-                    categories={categories.data} 
-                    onChange={setCategory} 
-                    value={category}
-                />
+                    <CategoriesFilter 
+                        categories={categories.data} 
+                        onChange={setCategory} 
+                        value={category}
+                    />
             }
+
+            <SortProductsOptions onChange={setSortBy} value={sortBy}/>
 
             {products.data?.items &&
                 <ProductList
