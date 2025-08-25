@@ -29,25 +29,23 @@ export default function HomeScreen() {
         <View className="flex-1">
             {
                 categories.data &&
-                    <CategoriesFilter 
-                        categories={categories.data} 
-                        onChange={setCategory} 
-                        value={category}
-                    />
+                <CategoriesFilter 
+                    categories={categories.data} 
+                    onChange={setCategory} 
+                    value={category}
+                />
             }
 
             <SortProductsOptions onChange={setSortBy} value={sortBy}/>
 
             {items &&
-                <>
-                    <ProductList
-                        products={items} 
-                        onEnded={onEnd}
-                        onRefresh={q.refetch}
-                        refreshing={q.isRefetching && !q.isFetchingNextPage}
-                        fetchingNextPage={q.isFetchingNextPage}
-                    />
-                </>
+                <ProductList
+                    products={items} 
+                    onEnded={onEnd}
+                    onRefresh={q.refetch}
+                    refreshing={q.isRefetching && !q.isFetchingNextPage}
+                    fetchingNextPage={q.isFetchingNextPage}
+                />
             }
         </View>
     ) 
