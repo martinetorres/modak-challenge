@@ -1,8 +1,6 @@
-# Welcome to your Expo app 👋
+# Modak challenge - Products list and details
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
+## How to execute the project
 
 1. Install dependencies
 
@@ -16,35 +14,23 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Architecture decisions
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+The app uses a Clean-Lite + MVVM pattern. 
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Rules
 
-## Get a fresh project
+- UI never consumes DTOs. UI only receives ViewModels (VMs). Use mappers to transform DTO → VM.
+- Data-fetching hooks (React Query) are used only in screen/container components (router screens), not inside presentational UI components.
 
-When you're ready, run:
+### Layers
 
-```bash
-npm run reset-project
-```
+- View: React Native components (screens + presentational components).
+- ViewModel: Hooks that fetch/cache data and return VMs (plus the VM types).
+- Mapper: Pure functions DTO → VM (formatting, defaults, flags).
+- API: Feature API modules that call the backend and return DTOs (uses a shared apiClient).
+- Shared: apiClient (HTTP), small utilities.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Data flow
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+View (Screen) → use... Hook → API (DTO) → Mapper → VM → View (UI)
