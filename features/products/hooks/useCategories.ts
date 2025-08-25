@@ -1,5 +1,5 @@
-import { categoriesApi } from "@/utils/apiClient";
 import { useQuery } from "@tanstack/react-query";
+import { categoriesApi } from "../api/categories.api";
 import { dtoToListVM } from "../mappers/categories.mappers";
 import { CategoryVM } from "../types/categories.vm";
 

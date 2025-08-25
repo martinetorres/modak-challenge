@@ -1,4 +1,4 @@
-import { ApiClient } from "@/utils/apiClient";
+import { api, ApiClient } from "@/utils/apiClient";
 import type { ProductDTO, ProductsListDTO } from "../types/products.dto";
 
 export function initProductApi(api: ApiClient) {
@@ -18,3 +18,5 @@ export function initProductApi(api: ApiClient) {
       api.get<ProductDTO>(`/products/${id}`),
   };
 }
+
+export const productApi = initProductApi(api);

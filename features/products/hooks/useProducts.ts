@@ -1,6 +1,6 @@
-import { productApi } from "@/utils/apiClient";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { productApi } from "../api/products.api";
 import { dtoListToCardVMList } from "../mappers/products.mapper";
 import type { ProductsListDTO } from "../types/products.dto";
 
