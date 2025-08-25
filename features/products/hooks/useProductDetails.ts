@@ -1,5 +1,5 @@
-import { productApi } from "@/utils/apiClient";
 import { useQuery } from "@tanstack/react-query";
+import { productApi } from "../api/products.api";
 import { dtoToDetailVM } from "../mappers/products.mapper";
 import { ProductDetailVM } from "../types/products.vm";
 
