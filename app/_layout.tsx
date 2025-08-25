@@ -1,3 +1,4 @@
+import { themeColors } from '@/utils/colors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -17,11 +18,26 @@ export default function RootLayout() {
     return null;
   }
 
+  const headerStyle = { backgroundColor: themeColors.secondaryBg };
+
   return (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="(home)/index" options={{ headerShown: true, title: 'Modak challenge' }} />
-        <Stack.Screen name="product/[id]" options={{title: 'Product'}} />
+        <Stack.Screen 
+          name="(home)/index" 
+          options={{ 
+            headerShown: true, 
+            title: 'Modak challenge',
+            headerStyle: headerStyle
+          }} 
+        />
+        <Stack.Screen 
+          name="product/[id]" 
+          options={{
+            title: 'Product',
+            headerStyle: headerStyle
+          }} 
+        />
       </Stack>
       <StatusBar style="auto" />
     </QueryClientProvider>

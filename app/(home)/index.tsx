@@ -4,6 +4,7 @@ import { dtoListToCardVMList } from "@/features/products/mappers/products.mapper
 import CategoriesFilter from "@/features/products/ui/CategoriesFilter";
 import { ProductList } from "@/features/products/ui/ProductList";
 import { SortProductsOptions } from "@/features/products/ui/SortProductsOptions";
+import { themeColors } from "@/utils/colors";
 import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 
@@ -22,7 +23,7 @@ export default function HomeScreen() {
         if (q.hasNextPage && !q.isFetchingNextPage) q.fetchNextPage();
     }, [q.hasNextPage, q.isFetchingNextPage, q.fetchNextPage]);
 
-    if (q.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
+    if (q.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator color={themeColors.brand} /></View>;
     if (q.isError) return <View className="p-4"><Text>Error</Text></View>;
 
     return(

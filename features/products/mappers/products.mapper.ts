@@ -26,7 +26,7 @@ export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
     description: (d.description ?? "").trim(),
     priceFormatted: fmtUSD(Number(d.price) || 0),
     rating: d.rating,
-    brand: d.brand ?? "Unknown",
+    brand: d.brand ?? "None",
     categoryLabel: d.category.charAt(0).toUpperCase() + d.category.slice(1),
     images: images.length ? images : (d.thumbnail ? [d.thumbnail] : []),
     shippingInformation: (d.shippingInformation).trim(),
