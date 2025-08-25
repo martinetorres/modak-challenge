@@ -1,23 +1,32 @@
 import { useCategories } from "@/features/products/hooks/useCategories";
-import { useProducts } from "@/features/products/hooks/useProducts";
+import { useProductsInfinite } from "@/features/products/hooks/useProducts";
+import { dtoListToCardVMList } from "@/features/products/mappers/products.mapper";
 import CategoriesFilter from "@/features/products/ui/CategoriesFilter";
 import { ProductList } from "@/features/products/ui/ProductList";
 import { SortProductsOptions } from "@/features/products/ui/SortProductsOptions";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 
 export default function HomeScreen() {
     const [category, setCategory] = useState<string>("all");
     const [sortBy, setSortBy] = useState<string>('');
-
-    const products = useProducts({ limit: 30, skip: 0, category, sortBy });
     const categories = useCategories();
+    const q = useProductsInfinite({ category, limit: 20, sortBy });
 
-    if (products.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
-    if (products.isError) return <View className="p-4"><Text>Ocurrió un error</Text></View>;
+    const items = useMemo(
+        () => q.data?.pages.flatMap((p) => dtoListToCardVMList(p).items) ?? [],
+        [q.data]
+    );
+
+    const onEnd = useCallback(() => {
+        if (q.hasNextPage && !q.isFetchingNextPage) q.fetchNextPage();
+    }, [q.hasNextPage, q.isFetchingNextPage, q.fetchNextPage]);
+
+    if (q.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
+    if (q.isError) return <View className="p-4"><Text>Error</Text></View>;
 
     return(
-        <View>
+        <View className="flex-1">
             {
                 categories.data &&
                     <CategoriesFilter 
@@ -29,10 +38,16 @@ export default function HomeScreen() {
 
             <SortProductsOptions onChange={setSortBy} value={sortBy}/>
 
-            {products.data?.items &&
-                <ProductList
-                    products={products.data?.items} 
-                />
+            {items &&
+                <>
+                    <ProductList
+                        products={items} 
+                        onEnded={onEnd}
+                        onRefresh={q.refetch}
+                        refreshing={q.isRefetching && !q.isFetchingNextPage}
+                        fetchingNextPage={q.isFetchingNextPage}
+                    />
+                </>
             }
         </View>
     ) 
