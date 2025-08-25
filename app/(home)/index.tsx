@@ -2,10 +2,12 @@ import { useCategories } from "@/features/products/hooks/useCategories";
 import { useProducts } from "@/features/products/hooks/useProducts";
 import CategoriesFilter from "@/features/products/ui/CategoriesFilter";
 import { ProductList } from "@/features/products/ui/ProductList";
+import { useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 
 export default function HomeScreen() {
-    const products = useProducts({ limit: 30, skip: 0 });
+    const [category, setCategory] = useState<string>("all");
+    const products = useProducts({ limit: 30, skip: 0, category });
     const categories = useCategories();
 
     if (products.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
@@ -15,10 +17,17 @@ export default function HomeScreen() {
         <View>
             {
                 categories.data &&
-                <CategoriesFilter categories={categories.data} onChange={() => {}} />
+                <CategoriesFilter 
+                    categories={categories.data} 
+                    onChange={setCategory} 
+                    value={category}
+                />
             }
+
             {products.data?.items &&
-                <ProductList products={products.data?.items} />
+                <ProductList
+                    products={products.data?.items} 
+                />
             }
         </View>
     ) 

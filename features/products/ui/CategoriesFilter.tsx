@@ -17,13 +17,13 @@ export default function CategoriesFilterNative({
   const hasValue = categories.some((i) => i.slug === value);
   return (
     <Picker
-      selectedValue={hasValue ? value : ""}
+      selectedValue={hasValue ? value : "all"}
       onValueChange={(v) => {
         if (v) onChange(String(v));
       }}
       mode='dialog'
     >
-      <Picker.Item label={placeholder} value="" />
+      <Picker.Item label={placeholder} value="all" />
       {categories.map(({ slug, name }) => (
         <Picker.Item key={slug} label={name} value={slug} />
       ))}
