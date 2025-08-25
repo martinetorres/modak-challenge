@@ -8,6 +8,13 @@ export type ProductCardVM = {
   previousPriceFormatted: string;
 };
 
+export type ReviewVM = {
+  rating: number;
+  comment: string;
+  date: string;     
+  reviewer: string;     
+};
+
 export type ProductDetailVM = {
   id: string;
   title: string;
@@ -22,4 +29,5 @@ export type ProductDetailVM = {
   warrantyInformation: string;
   discountPercentage: number;
   previousPriceFormatted: string;
+  reviews: ReviewVM[]
 };

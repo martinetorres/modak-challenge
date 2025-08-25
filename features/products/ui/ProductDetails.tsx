@@ -2,6 +2,7 @@ import { ScrollView, Text, View } from "react-native";
 import { ProductDetailVM } from "../types/products.vm";
 import ImagesSlider from "./ImagesSlider";
 import { PriceTag } from "./PriceTag";
+import { ProductReviews } from "./ProductReviews";
 import { RatingStars } from "./RatingStars";
 
 interface ProductDetailProps {
@@ -40,7 +41,9 @@ export const ProductDetails = ({product} : ProductDetailProps) => {
             <Text className='font-bold text-xl text-primary'>{product.availabilityStatus}</Text>
 
             <Text className='pt-6 pb-2 text-xl font-bold text-primary'>Description</Text>
-            <Text className='pb-20 text-secondary text-justify leading-6'>{product.description}</Text>
+            <Text className='pb-7 text-secondary text-justify leading-6'>{product.description}</Text>
+
+            <ProductReviews reviews={product.reviews} />
         </ScrollView>
     )
 }

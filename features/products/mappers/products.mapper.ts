@@ -4,6 +4,14 @@ import type { ProductCardVM, ProductDetailVM } from "../types/products.vm";
 const fmtUSD = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
 
+const fmtDate =  (d: string) => {
+  const date = new Date(d);
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 export const dtoToCardVM = (d: ProductDTO): ProductCardVM => {
   const stock = d.stock ?? 0;
   return {
@@ -32,7 +40,10 @@ export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
     shippingInformation: (d.shippingInformation).trim(),
     warrantyInformation: d.warrantyInformation,
     discountPercentage: d.discountPercentage || 0,
-    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) * d.discountPercentage / 100 || 0)
+    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) * d.discountPercentage / 100 || 0),
+    reviews: d.reviews
+      .map(item => ({comment: item.comment, rating: item.rating, date: fmtDate(item.date), reviewer: item.reviewerName}))
+      .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
   };
 };
 
