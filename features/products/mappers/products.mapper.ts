@@ -18,7 +18,6 @@ export const dtoToCardVM = (d: ProductDTO): ProductCardVM => {
 };
 
 export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
-  const stock = d.stock ?? 0;
   const images = (d.images ?? []).filter(Boolean);
   return {
     id: String(d.id),
@@ -28,11 +27,12 @@ export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
     priceFormatted: fmtUSD(Number(d.price) || 0),
     rating: d.rating,
     brand: d.brand ?? "Unknown",
-    categoryLabel: d.category,
+    categoryLabel: d.category.charAt(0).toUpperCase() + d.category.slice(1),
     images: images.length ? images : (d.thumbnail ? [d.thumbnail] : []),
     shippingInformation: (d.shippingInformation).trim(),
     warrantyInformation: d.warrantyInformation,
-    discountPercentage: d.discountPercentage || 0
+    discountPercentage: d.discountPercentage || 0,
+    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) / d.discountPercentage || 0)
   };
 };
 

@@ -1,3 +1,4 @@
+import { themeColors } from "@/utils/colors";
 import { Image } from "expo-image";
 import { cssInterop } from "nativewind";
 import { useState } from "react";
@@ -16,8 +17,8 @@ type Props = {
 export default function ImageSlider({
   images,
   height = 350,
-  dotActiveColor = "#111",
-  dotColor = "#E5E7EB",
+  dotActiveColor = themeColors.brand,
+  dotColor = themeColors.muted,
   onIndexChange,
 }: Props) {
   const { width: screenW } = useWindowDimensions();
@@ -56,7 +57,7 @@ export default function ImageSlider({
       </ScrollView>
       
       {images.length > 1 &&
-        <View className="absolute bottom-0 left-0 right-0 flex-row justify-center">
+        <View className="absolute bottom-3 left-0 right-0 flex-row justify-center">
           {images.map((_, i) => (
             <View
               key={i}

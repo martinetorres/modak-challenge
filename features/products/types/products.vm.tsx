@@ -21,4 +21,5 @@ export type ProductDetailVM = {
   shippingInformation: string;
   warrantyInformation: string;
   discountPercentage: number;
+  previousPriceFormatted: string;
 };

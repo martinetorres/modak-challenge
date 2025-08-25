@@ -6,4 +6,5 @@ export const themeColors = {
     secondaryBg: '#f5f8f7',
     brand: '#68c468ff',
     stars: '#ffe209ff',
+    muted: '#9c9c9cff'
 }

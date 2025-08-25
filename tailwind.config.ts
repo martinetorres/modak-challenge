@@ -1,9 +1,7 @@
 import preset from "nativewind/preset";
 import { themeColors } from "./utils/colors";
 
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  // NOTE: Update this to include the paths to all files that contain Nativewind classes.
   content: [
     "./App.tsx", 
     "./components/**/*.{js,jsx,ts,tsx}", 
@@ -12,8 +10,9 @@ module.exports = {
   ],
   presets: [preset],
   theme: {
-    colors: themeColors,
-    extend: {},
+    extend: {
+      colors: themeColors,
+    }
   },
   plugins: [],
 }
