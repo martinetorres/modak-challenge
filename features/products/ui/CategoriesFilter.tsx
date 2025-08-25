@@ -9,6 +9,7 @@ type Props = {
   value?: string;
   onChange: (slug: string) => void;
   placeholder?: string;
+  isFetching: boolean;
 };
 
 export default function CategoriesFilterNative({
@@ -16,6 +17,7 @@ export default function CategoriesFilterNative({
   value,
   onChange,
   placeholder = "All categories",
+  isFetching = false
 }: Props) {
   const hasValue = categories.some((i) => i.slug === value);
   return (
@@ -31,6 +33,7 @@ export default function CategoriesFilterNative({
             if (v) onChange(String(v));
           }}
           mode='dialog'
+          enabled={!isFetching}
         >
           <Picker.Item label={placeholder} value="all" />
           {categories.map(({ slug, name }) => (

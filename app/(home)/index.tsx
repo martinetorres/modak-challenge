@@ -40,10 +40,15 @@ export default function HomeScreen() {
                     categories={categories.data} 
                     onChange={setCategory} 
                     value={category}
+                    isFetching={categories.isFetching || productsQuery.isFetching}
                 />
             }
 
-            <SortProductsOptions onChange={setSortBy} value={sortBy}/>
+            <SortProductsOptions 
+                onChange={setSortBy} 
+                value={sortBy}
+                isFetching={productsQuery.isFetching}
+            />
 
             {
                 productsQuery.isLoading && 

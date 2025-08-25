@@ -6,9 +6,10 @@ import { Text, View } from "react-native";
 interface SortProductsOptionsProps {
     onChange: (sortBy: string) => void;
     value: string;
+    isFetching: boolean;
 }
 
-export const SortProductsOptions = ({onChange, value} : SortProductsOptionsProps) => {
+export const SortProductsOptions = ({onChange, value, isFetching} : SortProductsOptionsProps) => {
     const filterOptions = [
         { label: 'Default', sortQuery: '' },
         { label: 'Lower price', sortQuery: '?sortBy=price&order=asc' },
@@ -33,6 +34,7 @@ export const SortProductsOptions = ({onChange, value} : SortProductsOptionsProps
                         } else onChange(String(''));
                     }}
                     selectedValue={hasValue ? value : ''}
+                    enabled={!isFetching}
                 >
                     {filterOptions.map(({ label, sortQuery}) => (
                         <Picker.Item 
