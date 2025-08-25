@@ -1,3 +1,4 @@
+import { initCategoriesApi } from "@/features/products/api/categories.api";
 import { initProductApi } from "@/features/products/api/products.api";
 
 export type ApiClient = {
@@ -37,4 +38,6 @@ export function createApiClient(opts: { baseUrl: string; defaultHeaders?: Record
 }
 
 export const api = createApiClient({ baseUrl: "https://dummyjson.com" });
+
 export const productApi = initProductApi(api);
+export const categoriesApi = initCategoriesApi(api);
