@@ -1,3 +1,4 @@
+import { themeColors } from "@/utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 
@@ -11,13 +12,13 @@ type Props = {
 export const RatingStars = ({
   rating,
   size = 18,
-  colorFilled = "#ffd323ff",
-  colorEmpty = "#c2c2c2ff",
+  colorFilled = themeColors.stars,
+  colorEmpty = themeColors.muted,
 }: Props) => {
   const r = Math.max(0, Math.min(5, Number(rating) || 0));
   return (
     <View className="flex-row">
-        <Text className="pr-1">{rating}</Text>
+        <Text className="pr-1 text-secondary">{rating}</Text>
 
         {Array.from({ length: 5 }).map((_, i) => {
             const v = r - i;

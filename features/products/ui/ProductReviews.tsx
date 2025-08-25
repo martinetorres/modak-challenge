@@ -27,6 +27,7 @@ export const ProductReviews = ({reviews} : ProductReviewsProps) => {
                         </View>
                     </View>
                 )}
+                scrollEnabled={false}
             />
         </>
     )
