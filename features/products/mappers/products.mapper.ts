@@ -13,7 +13,7 @@ export const dtoToCardVM = (d: ProductDTO): ProductCardVM => {
     thumbnailUrl: d.thumbnail ?? d.images?.[0] ?? null,
     rating: (Math.round(d.rating * 10) / 10).toString(),
     discountPercentage: d.discountPercentage.toString() || '',
-    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) / d.discountPercentage || 0)
+    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) * d.discountPercentage / 100 || 0)
   };
 };
 
@@ -32,7 +32,7 @@ export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
     shippingInformation: (d.shippingInformation).trim(),
     warrantyInformation: d.warrantyInformation,
     discountPercentage: d.discountPercentage || 0,
-    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) / d.discountPercentage || 0)
+    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) * d.discountPercentage / 100 || 0)
   };
 };
 
