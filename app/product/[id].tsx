@@ -1,8 +1,9 @@
 import { useProductDetails } from "@/features/products/hooks/useProductDetails";
+import { ApiErrorMessage } from "@/features/products/ui/ApiErrorMessage";
 import { ProductDetails } from "@/features/products/ui/ProductDetails";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useLayoutEffect } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export default function ProductDetailsScreen() {
     const {id, title} = useLocalSearchParams<{ id: string, title: string }>();
@@ -15,8 +16,16 @@ export default function ProductDetailsScreen() {
         }
     }, [navigation, title]);
     
-    if (product.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator /></View>;
-    if (product.isError) return <View className="p-4"><Text>Ocurrió un error</Text></View>;
+    if (product.isLoading) return <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size={'large'} />
+    </View>;
+    
+    if (product.isError && !product.isFetching) return (
+        <ApiErrorMessage 
+            message="Error obtaining product details" 
+            retry={() => product.refetch()}
+        />
+    );
     
     if (product.data) {
         return(

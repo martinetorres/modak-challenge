@@ -1,30 +1,36 @@
 import { useCategories } from "@/features/products/hooks/useCategories";
 import { useProductsInfinite } from "@/features/products/hooks/useProducts";
 import { dtoListToCardVMList } from "@/features/products/mappers/products.mapper";
+import { ApiErrorMessage } from "@/features/products/ui/ApiErrorMessage";
 import CategoriesFilter from "@/features/products/ui/CategoriesFilter";
 import { ProductList } from "@/features/products/ui/ProductList";
 import { SortProductsOptions } from "@/features/products/ui/SortProductsOptions";
 import { themeColors } from "@/utils/colors";
 import { useCallback, useMemo, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export default function HomeScreen() {
     const [category, setCategory] = useState<string>("all");
     const [sortBy, setSortBy] = useState<string>('');
     const categories = useCategories();
-    const q = useProductsInfinite({ category, limit: 20, sortBy });
+    const productsQuery = useProductsInfinite({ category, limit: 20, sortBy });
 
     const items = useMemo(
-        () => q.data?.pages.flatMap((p) => dtoListToCardVMList(p).items) ?? [],
-        [q.data]
+        () => productsQuery.data?.pages.flatMap((prod) => dtoListToCardVMList(prod).items) ?? [],
+        [productsQuery.data]
     );
 
     const onEnd = useCallback(() => {
-        if (q.hasNextPage && !q.isFetchingNextPage) q.fetchNextPage();
-    }, [q.hasNextPage, q.isFetchingNextPage, q.fetchNextPage]);
+        if (productsQuery.hasNextPage && !productsQuery.isFetchingNextPage) 
+            productsQuery.fetchNextPage();
+    }, [productsQuery.hasNextPage, productsQuery.isFetchingNextPage, productsQuery.fetchNextPage]);
 
-    if (q.isLoading) return <View className="flex-1 items-center justify-center"><ActivityIndicator color={themeColors.brand} /></View>;
-    if (q.isError) return <View className="p-4"><Text>Error</Text></View>;
+    if (productsQuery.isError && !productsQuery.isFetching) return (
+        <ApiErrorMessage
+            message="Error obtaining products list"
+            retry={() => productsQuery.refetch()}
+        />
+    );
 
     return(
         <View className="flex-1">
@@ -39,13 +45,20 @@ export default function HomeScreen() {
 
             <SortProductsOptions onChange={setSortBy} value={sortBy}/>
 
+            {
+                productsQuery.isLoading && 
+                <View className="flex-1 items-center justify-center">
+                    <ActivityIndicator size={'large'} color={themeColors.brand} />
+                </View>
+            }
+
             {items &&
                 <ProductList
                     products={items} 
                     onEnded={onEnd}
-                    onRefresh={q.refetch}
-                    refreshing={q.isRefetching && !q.isFetchingNextPage}
-                    fetchingNextPage={q.isFetchingNextPage}
+                    onRefresh={productsQuery.refetch}
+                    refreshing={productsQuery.isRefetching && !productsQuery.isFetchingNextPage}
+                    fetchingNextPage={productsQuery.isFetchingNextPage}
                 />
             }
         </View>

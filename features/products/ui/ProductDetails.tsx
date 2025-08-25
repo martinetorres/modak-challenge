@@ -15,8 +15,6 @@ export const ProductDetails = ({product} : ProductDetailProps) => {
             <View className="flex flex-row justify-between">
                 <View className="flex-row gap-2">
                     <Text className='text-secondary'>Brand: {product.brand}</Text>
-                    <Text>|</Text>
-                    <Text className='text-secondary'>{product.categoryLabel}</Text>
                 </View>
                 <RatingStars rating={product.rating} />
             </View>
@@ -33,7 +31,7 @@ export const ProductDetails = ({product} : ProductDetailProps) => {
                 discountPercentage={product.discountPercentage.toString()} 
             />
             
-            <View className="flex-row justify-between py-2">
+            <View className="flex-row justify-between pb-2 pt-4">
                 <Text className='text-lg text-secondary'>{product.shippingInformation}</Text>
                 <Text className='text-lg text-secondary'>{product.warrantyInformation}</Text>
             </View>
