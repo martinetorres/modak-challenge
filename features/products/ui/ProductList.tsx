@@ -1,3 +1,4 @@
+import { themeColors } from "@/utils/colors";
 import { router } from "expo-router";
 import { ActivityIndicator, FlatList, Pressable, View } from "react-native";
 import { ProductCardVM } from "../types/products.vm";
@@ -28,7 +29,7 @@ export const ProductList = ({products, onEnded, onRefresh, refreshing, fetchingN
                         <ProductListItem product={item} />
                     </Pressable>
                 )}
-                contentContainerStyle={{ paddingVertical: 16 }}
+                contentContainerStyle={{ paddingVertical: 16, gap:12 }}
                 onEndReached={onEnded}
                 onEndReachedThreshold={0.4}
                 refreshing={refreshing}
@@ -36,7 +37,7 @@ export const ProductList = ({products, onEnded, onRefresh, refreshing, fetchingN
                 ListFooterComponent={
                     fetchingNextPage ? (
                     <View className="py-4 items-center">
-                        <ActivityIndicator />
+                        <ActivityIndicator color={themeColors.brand} />
                     </View>
                     ) : null
                 }
