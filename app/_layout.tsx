@@ -20,8 +20,8 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="(home)/index" options={{ headerShown: true }} />
-        <Stack.Screen name="product/[id]" />
+        <Stack.Screen name="(home)/index" options={{ headerShown: true, title: 'Modak challenge' }} />
+        <Stack.Screen name="product/[id]" options={{title: 'Product'}} />
       </Stack>
       <StatusBar style="auto" />
     </QueryClientProvider>
