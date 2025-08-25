@@ -11,6 +11,9 @@ export const dtoToCardVM = (d: ProductDTO): ProductCardVM => {
     title: (d.title ?? "").trim(),
     priceFormatted: fmtUSD(Number(d.price) || 0),
     thumbnailUrl: d.thumbnail ?? d.images?.[0] ?? null,
+    rating: (Math.round(d.rating * 10) / 10).toString(),
+    discountPercentage: d.discountPercentage.toString() || '',
+    previousPriceFormatted: fmtUSD(Number(d.price) + Number(d.price) / d.discountPercentage || 0)
   };
 };
 

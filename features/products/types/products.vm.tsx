@@ -3,6 +3,9 @@ export type ProductCardVM = {
   title: string;
   priceFormatted: string;
   thumbnailUrl: string | null;
+  rating: string;
+  discountPercentage: string;
+  previousPriceFormatted: string;
 };
 
 export type ProductDetailVM = {
