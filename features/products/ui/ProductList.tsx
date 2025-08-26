@@ -14,8 +14,8 @@ interface ProductsListProps {
 
 export const ProductList = ({products, onEnded, onRefresh, refreshing, fetchingNextPage}: ProductsListProps) => {
 
-    const navigateToProductDetails = (id: string, title: string) => {
-        router.push({pathname: '/product/[id]', params: {id, title}});
+    const navigateToProductDetails = (id: string) => {
+        router.push({pathname: '/product/[id]', params: {id}});
     }
 
     return(
@@ -25,7 +25,7 @@ export const ProductList = ({products, onEnded, onRefresh, refreshing, fetchingN
                 data={products ?? []}
                 keyExtractor={(it) => it.id}
                 renderItem={({ item }) => (
-                    <Pressable onPress={() => navigateToProductDetails(item.id, item.title)}>
+                    <Pressable onPress={() => navigateToProductDetails(item.id)}>
                         <ProductListItem product={item} />
                     </Pressable>
                 )}

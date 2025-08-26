@@ -34,3 +34,11 @@ The app uses a Clean-Lite + MVVM pattern.
 ### Data flow
 
 View (Screen) → use... Hook → API (DTO) → Mapper → VM → View (UI)
+
+## Deeplinks
+
+In order to test the deeplinks in Android, execute the following commands:
+
+``` npx uri-scheme open "modakchallenge://category/tablets" --android ```
+
+``` npx uri-scheme open "modakchallenge://product/2" --android ```

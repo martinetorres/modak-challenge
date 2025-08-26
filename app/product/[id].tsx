@@ -6,15 +6,15 @@ import { useLayoutEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function ProductDetailsScreen() {
-    const {id, title} = useLocalSearchParams<{ id: string, title: string }>();
+    const {id} = useLocalSearchParams<{ id: string }>();
     const product = useProductDetails({id: id});
     const navigation = useNavigation();
 
     useLayoutEffect(() => {
-        if (title) { 
-            navigation.setOptions({ headerTitle: title });
+        if (product.data) { 
+            navigation.setOptions({ headerTitle: product.data?.title });
         }
-    }, [navigation, title]);
+    }, [navigation, product.data]);
     
     if (product.isLoading) return <View className="flex-1 items-center justify-center">
         <ActivityIndicator size={'large'} />

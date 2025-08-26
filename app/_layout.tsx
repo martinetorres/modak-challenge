@@ -38,6 +38,14 @@ export default function RootLayout() {
             headerStyle: headerStyle
           }} 
         />
+        <Stack.Screen 
+          name="category/[slug]" 
+          options={{ 
+            headerShown: true, 
+            title: 'Modak challenge',
+            headerStyle: headerStyle
+          }} 
+        />
       </Stack>
       <StatusBar style="auto" />
     </QueryClientProvider>

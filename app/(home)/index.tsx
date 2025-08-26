@@ -9,8 +9,8 @@ import { themeColors } from "@/utils/colors";
 import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-export default function HomeScreen() {
-    const [category, setCategory] = useState<string>("all");
+export default function HomeScreen({initialCategory = "all"} : {initialCategory?: string}) {
+    const [category, setCategory] = useState<string>(initialCategory);
     const [sortBy, setSortBy] = useState<string>('');
     const categories = useCategories();
     const productsQuery = useProductsInfinite({ category, limit: 20, sortBy });
