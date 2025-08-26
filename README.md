@@ -35,10 +35,10 @@ The app uses a Clean-Lite + MVVM pattern.
 
 View (Screen) → use... Hook → API (DTO) → Mapper → VM → View (UI)
 
-## Deeplinks
+## Deeplinks and notifications
 
-In order to test the deeplinks in Android, execute the following commands:
+In the product details screen, I added two buttons: Quick reminder and Test category deeplink.
 
-``` npx uri-scheme open "modakchallenge://category/tablets" --android ```
+If you press Quick reminder, a push notification will pop in 6 seconds, with a deeplink to this product screen.
 
-``` npx uri-scheme open "modakchallenge://product/2" --android ```
+Something similar will happen if you click "Test category deeplink". In this case home screen will be initialized with the products category.

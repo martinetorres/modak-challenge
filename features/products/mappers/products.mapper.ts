@@ -26,6 +26,7 @@ export const dtoToDetailVM = (d: ProductDTO): ProductDetailVM => {
     rating: d.rating,
     brand: d.brand ?? "None",
     categoryLabel: d.category.charAt(0).toUpperCase() + d.category.slice(1),
+    categorySlug: d.category,
     images: images.length ? images : (d.thumbnail ? [d.thumbnail] : []),
     shippingInformation: (d.shippingInformation).trim(),
     warrantyInformation: d.warrantyInformation,

@@ -35,6 +35,7 @@ export const SortProductsOptions = ({onChange, value, isFetching} : SortProducts
                     }}
                     selectedValue={hasValue ? value : ''}
                     enabled={!isFetching}
+                    style={{color: themeColors.secondary}}
                 >
                     {filterOptions.map(({ label, sortQuery}) => (
                         <Picker.Item 

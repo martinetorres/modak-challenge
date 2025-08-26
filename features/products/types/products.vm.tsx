@@ -23,6 +23,7 @@ export type ProductDetailVM = {
   rating: number;
   brand: string;
   categoryLabel: string;
+  categorySlug: string;
   availabilityStatus: string;
   images: string[];
   shippingInformation: string;

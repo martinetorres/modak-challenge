@@ -35,9 +35,13 @@ export default function CategoriesFilterNative({
           mode='dialog'
           enabled={!isFetching}
         >
-          <Picker.Item label={placeholder} value="all" />
+          <Picker.Item label={placeholder} value="all" style={{color: themeColors.secondary}}/>
           {categories.map(({ slug, name }) => (
-            <Picker.Item key={slug} label={name} value={slug} />
+            <Picker.Item 
+              key={slug} 
+              label={name} 
+              value={slug} 
+            />
           ))}
         </Picker>
       </View>

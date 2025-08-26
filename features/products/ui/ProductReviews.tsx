@@ -9,7 +9,7 @@ interface ProductReviewsProps {
 export const ProductReviews = ({reviews} : ProductReviewsProps) => {
     return (
         <>
-            <Text className="text-xl font-bold text-primary mb-2">Latest reviews</Text>
+            <Text className="text-xl font-bold text-primary mb-2 mt-8">Latest reviews</Text>
             <FlatList 
                 data={reviews}
                 contentContainerClassName="flex-column gap-5 pb-20"
