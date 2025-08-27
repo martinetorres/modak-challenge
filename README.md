@@ -11,8 +11,10 @@
 2. Start the app
 
    ```bash
-   npx expo start
+   npm run android
    ```
+
+Note: the app should work in iOS too, but I couldn't test it because I don't have a device. Some features don't work with Expo Go (Push notifications, pickers).
 
 ## Architecture decisions
 
