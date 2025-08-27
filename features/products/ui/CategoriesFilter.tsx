@@ -1,7 +1,8 @@
 import { themeColors } from "@/utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
-import { Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, useColorScheme, View } from "react-native";
 import { CategoryVM } from "../types/categories.vm";
 
 type Props = {
@@ -20,6 +21,19 @@ export default function CategoriesFilterNative({
   isFetching = false
 }: Props) {
   const hasValue = categories.some((i) => i.slug === value);
+
+  const colorScheme = useColorScheme();
+  
+  const [pickerFontColor, setPickerFontColor] = useState(themeColors.primary);
+  const [pickerBgColor, setPickerBgColor] = useState(themeColors.primaryBg);
+  
+  useEffect(() => {
+      if (colorScheme === 'dark') {
+          setPickerFontColor(themeColors.primaryBg);
+          setPickerBgColor(themeColors.primary);
+      } 
+  }, [colorScheme]);
+
   return (
     <View className="bg-secondaryBg rounded-2xl mt-5 ml-5 mr-5 px-5 flex-row justify-between items-center gap-2">
       <MaterialIcons name="filter-list" color={themeColors.primary} size={20} />
@@ -35,14 +49,27 @@ export default function CategoriesFilterNative({
           mode='dialog'
           enabled={!isFetching}
         >
-          <Picker.Item label={placeholder} value="all" style={{color: themeColors.secondary}}/>
-          {categories.map(({ slug, name }) => (
-            <Picker.Item 
-              key={slug} 
-              label={name} 
-              value={slug} 
-            />
-          ))}
+          <Picker.Item 
+            label={placeholder} 
+            value="all" 
+            color={value === "all" ? themeColors.secondary : pickerFontColor}
+            style={{backgroundColor: value === "all" ? themeColors.secondaryBg : pickerBgColor}}
+          />
+          
+          {categories.map(({ slug, name }) => 
+            {
+              const isSelected = slug === value;
+              return (
+                <Picker.Item 
+                  key={slug} 
+                  label={name} 
+                  value={slug} 
+                  color={isSelected ? themeColors.secondary : pickerFontColor}
+                  style={{backgroundColor: isSelected ? themeColors.secondaryBg : pickerBgColor}}
+                />
+              )
+            }
+          )}
         </Picker>
       </View>
     </View>

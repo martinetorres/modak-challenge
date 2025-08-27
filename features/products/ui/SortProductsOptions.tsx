@@ -1,7 +1,8 @@
 import { themeColors } from "@/utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
-import { Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, useColorScheme, View } from "react-native";
 
 interface SortProductsOptionsProps {
     onChange: (sortBy: string) => void;
@@ -19,6 +20,18 @@ export const SortProductsOptions = ({onChange, value, isFetching} : SortProducts
     ];
     
     const hasValue = filterOptions.some((i) => i.sortQuery === value);
+    
+    const colorScheme = useColorScheme();
+
+    const [pickerFontColor, setPickerFontColor] = useState(themeColors.primary);
+    const [pickerBgColor, setPickerBgColor] = useState(themeColors.primaryBg);
+    
+    useEffect(() => {
+        if (colorScheme === 'dark') {
+            setPickerFontColor(themeColors.primaryBg);
+            setPickerBgColor(themeColors.primary);
+        } 
+    }, [colorScheme]);
 
     return(
         <View className="bg-secondaryBg rounded-2xl mt-5 ml-5 mr-5 px-5 flex-row justify-between items-center gap-2 mb-5">
@@ -35,15 +48,19 @@ export const SortProductsOptions = ({onChange, value, isFetching} : SortProducts
                     }}
                     selectedValue={hasValue ? value : ''}
                     enabled={!isFetching}
-                    style={{color: themeColors.secondary}}
                 >
-                    {filterOptions.map(({ label, sortQuery}) => (
-                        <Picker.Item 
-                            key={label} 
-                            label={label} 
-                            value={sortQuery} 
-                        />
-                    ))}
+                    {filterOptions.map(({ label, sortQuery}) => {
+                        const isSelected = sortQuery === value;
+                        return (
+                            <Picker.Item 
+                                key={label} 
+                                label={label} 
+                                value={sortQuery} 
+                                color={isSelected ? themeColors.secondary : pickerFontColor}
+                                style={{backgroundColor: isSelected ? themeColors.secondaryBg : pickerBgColor}}
+                            />
+                        )
+                    })}
                 </Picker>
             </View>
         </View>
