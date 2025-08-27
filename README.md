@@ -42,3 +42,7 @@ In the product details screen, I added two buttons: Quick reminder and Test cate
 If you press Quick reminder, a push notification will pop in 6 seconds, with a deeplink to this product screen.
 
 Something similar will happen if you click "Test category deeplink". In this case home screen will be initialized with the products category.
+
+## APK
+
+[Download APK](https://drive.google.com/file/d/1zT5xQn5rBzdhpWYx4y_9eM3y-g6n-Ax7/view?usp=drive_link)
